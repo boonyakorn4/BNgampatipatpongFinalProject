@@ -34,7 +34,7 @@ void Button_Interrupt_Init() {
 
 	GPIO_InitTypeDef button;
 	button.Pin = GPIO_PIN_0;
-	button.Mode = GPIO_MODE_IT_RISING_FALLING;
+	button.Mode = GPIO_MODE_IT_RISING;
 	button.Speed = GPIO_SPEED_FREQ_MEDIUM;
 	button.Pull = GPIO_NOPULL;
 	Button_EnableClock();

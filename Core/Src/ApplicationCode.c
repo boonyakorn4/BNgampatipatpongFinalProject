@@ -27,6 +27,7 @@ void ApplicationInit(void)
     LTCD__Init();
     LTCD_Layer_Init(0);
     LCD_Clear(0,LCD_COLOR_WHITE);
+    buttonInterruptInit();
 
     addSchedulerEvent(GAME_HOMESCREEN_EVENT);
 
@@ -63,6 +64,18 @@ uint32_t RNG_generateNumber7() {
 	generateNumber7();
 }
 
+buttonInterruptInit() {
+	Button_Interrupt_Init();
+}
+
+void EXTI0_IRQHandler() {
+	IRQDisableInterrupt(EXTI0_IRQ_NUMBER);
+
+	Game_Rotate();
+
+	IRQClearInterruptPendingBit(buttonPinNumber);
+	IRQEnableInterrupt(EXTI0_IRQ_NUMBER);
+}
 
 #if COMPILE_TOUCH_FUNCTIONS == 1
 void LCD_Touch_Polling_Demo(void)

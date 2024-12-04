@@ -209,10 +209,9 @@ void Game_Left() {
 		}
 
 
-		return true;
-	} else {
-		return false;
+
 	}
+
 }
 void Game_Right() {
 	uint32_t newLocation[4][2];
@@ -236,12 +235,40 @@ void Game_Right() {
 		}
 
 
-		return true;
-	} else {
-		return false;
 	}
 }
 
-void Game_Rotate();
+void Game_Rotate() {
+	uint32_t newLocation[4][2];
+	newLocation[0][0] = movingBlock[0][0];
+	newLocation[0][1] = movingBlock[0][1];
+	for (int i = 1; i < 4; i++) {
+		newLocation[i][0] = movingBlock[i][0] - movingBlock[0][0];
+		newLocation[i][1] = movingBlock[i][1] - movingBlock[0][1];
+		uint32_t temp = newLocation[i][1];
+		newLocation[i][1] = newLocation[i][0];
+		newLocation[i][0] = -temp;
+		newLocation[i][0] = newLocation[i][0] + movingBlock[0][0];
+		newLocation[i][1] = newLocation[i][1] + movingBlock[0][1];
+	}
+	if (!overlap(newLocation)) {
+		for (int i = 0; i < 4; i++) {
+			Game_PlaceBlank(movingBlock[i][0],movingBlock[i][1]);
+
+		}
+		for (int i = 0; i < 4; i++) {
+			Game_PlaceSquare(newLocation[i][0],newLocation[i][1], colorMatrix[currentBlock]);
+
+		}
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 2; j++) {
+				movingBlock[i][j] = newLocation[i][j];
+			}
+		}
+
+
+
+	}
+}
 
 bool Game_Lost();

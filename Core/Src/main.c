@@ -77,6 +77,7 @@ int main(void)
 					GameOver = 0;
 					HAL_Delay(500);
 
+
 				}
 				Game_Merge();
 			}
