@@ -52,6 +52,7 @@ int main(void)
 	//Game_Init();
 	//Game_Run();
 
+	// Hello
 	HAL_Delay(100);
 	uint32_t eventsToRun;
 	while(1) {
