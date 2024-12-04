@@ -1,0 +1,2 @@
+../Core/Src/RNG.c:9:6:RNG_Init	2
+../Core/Src/RNG.c:21:10:generateNumber7	2

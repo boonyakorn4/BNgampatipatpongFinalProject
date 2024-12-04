@@ -1,0 +1,5 @@
+../Core/Src/InterruptControl.c:10:6:IRQEnableInterrupt	24	static
+../Core/Src/InterruptControl.c:19:6:IRQDisableInterrupt	24	static
+../Core/Src/InterruptControl.c:27:6:IRQClearPendingInterrupt	24	static
+../Core/Src/InterruptControl.c:33:6:IRQSetPendingInterrupt	24	static
+../Core/Src/InterruptControl.c:39:6:IRQClearInterruptPendingBit	24	static

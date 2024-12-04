@@ -1,0 +1,5 @@
+../Core/Src/ApplicationCode.c:23:6:ApplicationInit	1
+../Core/Src/ApplicationCode.c:48:6:LCD_Visual_Demo	1
+../Core/Src/ApplicationCode.c:53:6:LCD_Menu_Screen	1
+../Core/Src/ApplicationCode.c:58:6:LCD_Game_Screen	1
+../Core/Src/ApplicationCode.c:62:10:RNG_generateNumber7	1
