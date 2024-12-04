@@ -105,7 +105,7 @@ void LCDTouchScreenInterruptGPIOInit(void)
     LCDConfig.Pin = GPIO_PIN_15;
     LCDConfig.Mode = GPIO_MODE_IT_RISING_FALLING;
     LCDConfig.Pull = GPIO_NOPULL;
-    LCDConfig.Speed = GPIO_SPEED_FREQ_HIGH;
+    LCDConfig.Speed = GPIO_SPEED_FREQ_VERY_HIGH; // changes from high to very high
     
     // Clock enable
     __HAL_RCC_GPIOA_CLK_ENABLE();
@@ -153,18 +153,23 @@ void EXTI15_10_IRQHandler()
 	// Determine if it is pressed or unpressed
 	if(isTouchDetected) // Touch has been detected
 	{
-		printf("\nPressed");
+		//printf("\nPressed");
 		// May need to do numerous retries? 
 		DetermineTouchPosition(&StaticTouchData);
 		/* Touch valid */
-		printf("\nX: %03d\nY: %03d \n", StaticTouchData.x, StaticTouchData.y);
-		LCD_Clear(0, LCD_COLOR_RED);
+		//printf("\nX: %03d\nY: %03d \n", StaticTouchData.x, StaticTouchData.y);
+		//LCD_Clear(0, LCD_COLOR_RED);
+		if (StaticTouchData.x > 120) {
+			Game_Right();
+		} else if (StaticTouchData.x <= 120) {
+			Game_Left();
+		}
 
 	}else{
 
 		/* Touch not pressed */
-		printf("\nNot pressed \n");
-		LCD_Clear(0, LCD_COLOR_GREEN);
+		//printf("\nNot pressed \n");
+		//LCD_Clear(0, LCD_COLOR_GREEN);
 	}
 
 	STMPE811_Write(STMPE811_FIFO_STA, 0x01);
