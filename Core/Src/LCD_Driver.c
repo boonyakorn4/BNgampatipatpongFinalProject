@@ -416,6 +416,19 @@ void menuScreen() {
 
 }
 
+void gameOverScreen() {
+	LCD_Clear(0, LCD_COLOR_WHITE);
+	LCD_DisplayChar(90,140,'G');
+	LCD_DisplayChar(105,140,'a');
+	LCD_DisplayChar(125,140,'m');
+	LCD_DisplayChar(145,140,'e');
+	LCD_DisplayChar(90,165,'O');
+	LCD_DisplayChar(105,165,'v');
+	LCD_DisplayChar(115,165,'e');
+	LCD_DisplayChar(125,165,'r');
+
+}
+
 void playScreen() {
 	LCD_Clear(0, LCD_COLOR_WHITE);
 	LCD_Draw_Rectangle_Fill(0,0,20,320,LCD_COLOR_BLACK);

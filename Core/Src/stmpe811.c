@@ -29,7 +29,7 @@ void I2C3_MulitByteRead(uint8_t address, uint8_t reg, uint8_t * rxData, uint16_t
 static I2C_HandleTypeDef hI2C3;
 static HAL_StatusTypeDef HAL_status;
 
-#define DEFAULT_TESTING_TIMEOUT 250000
+#define DEFAULT_TESTING_TIMEOUT 250000 // Changed from 250000
 
 /* The below function was created by Tilen MAJERLE but modified by Xavion */
 STMPE811_State_t STMPE811_Init(void)

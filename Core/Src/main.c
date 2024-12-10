@@ -60,7 +60,6 @@ int main(void)
 		if (eventsToRun & GAME_HOMESCREEN_EVENT) {
 			LCD_Menu_Screen();
 			removeSchedulerEvent(GAME_HOMESCREEN_EVENT);
-			addSchedulerEvent(GAME_START_EVENT);
 		}
 
 		if (eventsToRun & GAME_START_EVENT) {
@@ -88,7 +87,7 @@ int main(void)
 		}
 
 		if (eventsToRun & GAME_OVER_EVENT) {
-			LCD_Menu_Screen();
+			gameOverScreen();
 			removeSchedulerEvent(GAME_OVER_EVENT);
 
 		}

@@ -64,6 +64,10 @@ uint32_t RNG_generateNumber7() {
 	generateNumber7();
 }
 
+void WaitMS(uint32_t) {
+
+}
+
 buttonInterruptInit() {
 	Button_Interrupt_Init();
 }
@@ -105,7 +109,7 @@ void LCDTouchScreenInterruptGPIOInit(void)
     LCDConfig.Pin = GPIO_PIN_15;
     LCDConfig.Mode = GPIO_MODE_IT_RISING_FALLING;
     LCDConfig.Pull = GPIO_NOPULL;
-    LCDConfig.Speed = GPIO_SPEED_FREQ_VERY_HIGH; // changes from high to very high
+    LCDConfig.Speed = GPIO_SPEED_FREQ_HIGH; // changed from high to very high
     
     // Clock enable
     __HAL_RCC_GPIOA_CLK_ENABLE();
@@ -155,15 +159,23 @@ void EXTI15_10_IRQHandler()
 	{
 		//printf("\nPressed");
 		// May need to do numerous retries? 
-		DetermineTouchPosition(&StaticTouchData);
-		/* Touch valid */
-		//printf("\nX: %03d\nY: %03d \n", StaticTouchData.x, StaticTouchData.y);
-		//LCD_Clear(0, LCD_COLOR_RED);
-		if (StaticTouchData.x > 120) {
-			Game_Right();
-		} else if (StaticTouchData.x <= 120) {
-			Game_Left();
+		uint32_t eventsToRun = getScheduledEvents();
+
+		if ((eventsToRun & GAME_START_EVENT) == 0) {
+			addSchedulerEvent(GAME_START_EVENT);
+
+		} else {
+			DetermineTouchPosition(&StaticTouchData);
+			/* Touch valid */
+			//printf("\nX: %03d\nY: %03d \n", StaticTouchData.x, StaticTouchData.y);
+			//LCD_Clear(0, LCD_COLOR_RED);
+			if (StaticTouchData.x > 120) {
+				Game_Right();
+			} else if (StaticTouchData.x <= 120) {
+				Game_Left();
+			}
 		}
+
 
 	}else{
 

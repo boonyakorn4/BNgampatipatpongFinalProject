@@ -86,6 +86,9 @@ void drawL(uint16_t Xpos, uint16_t Ypos);
 void drawJ(uint16_t Xpos, uint16_t Ypos);
 void drawT(uint16_t Xpos, uint16_t Ypos);
 
+// game over
+void gameOverScreen(void);
+
 void LCD_Error_Handler(void);
 
 // Demo using provided functions

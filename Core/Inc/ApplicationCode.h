@@ -24,6 +24,7 @@ void LCD_Visual_Demo(void);
 void LCD_Menu_Screen();
 void LCD_Game_Screen();
 uint32_t RNG_generateNumber7();
+void WaitMS(uint32_t);
 
 
 #if (COMPILE_TOUCH_FUNCTIONS == 1) && (COMPILE_TOUCH_INTERRUPT_SUPPORT == 0)
