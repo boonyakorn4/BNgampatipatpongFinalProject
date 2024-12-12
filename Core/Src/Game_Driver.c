@@ -10,6 +10,11 @@ static uint32_t gameMatrix[numRow][numCol];
 static uint32_t movingBlock[4][2];
 static uint16_t currentBlock;
 static uint16_t colorMatrix[7] = {LCD_COLOR_YELLOW, LCD_COLOR_CYAN, LCD_COLOR_RED, LCD_COLOR_GREEN, LCD_COLOR_ORANGE, LCD_COLOR_MAGENTA, LCD_COLOR_PURPLE};
+static uint32_t gameTimeMs;
+char numToChar[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+static uint32_t initialGameTime;
+static uint32_t finalGameTime;
+
 
 void Game_Init() {
 	playScreen();
@@ -269,6 +274,46 @@ void Game_Rotate() {
 
 
 	}
+}
+void incrementGameTime() {
+	gameTimeMs++;
+}
+
+void displayGameTime() {
+	LCD_SetTextColor(LCD_COLOR_BLACK);
+	LCD_SetFont(&Font16x24);
+	//uint32_t temp = gameTimeMs;
+	uint32_t temp = getTotalTime();
+
+	LCD_DisplayChar(72,250,numToChar[temp / 100000]);
+	temp = temp - ((temp / 100000) * 100000);
+
+	LCD_DisplayChar(96,250,numToChar[temp / 10000]);
+	temp = temp - ((temp / 10000) * 10000);
+
+	LCD_DisplayChar(120,250,numToChar[temp / 1000]);
+	temp = temp - ((temp / 1000) * 1000);
+
+	LCD_DisplayChar(144,250,numToChar[temp / 100]);
+	temp = temp - ((temp / 100) * 100);
+
+	LCD_DisplayChar(168,250,numToChar[temp / 10]);
+	temp = temp - ((temp / 10) * 10);
+
+	LCD_DisplayChar(192,250,numToChar[temp]);
+
+}
+
+void setInitialTime() {
+	initialGameTime = HAL_GetTick();
+}
+
+void setFinalTime() {
+	finalGameTime = HAL_GetTick();
+}
+
+uint32_t getTotalTime() {
+	return (uint32_t) ((initialGameTime < finalGameTime) ? (finalGameTime - initialGameTime) : ((65535 - initialGameTime) + finalGameTime));
 }
 
 bool Game_Lost();

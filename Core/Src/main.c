@@ -21,6 +21,7 @@
 #include "ApplicationCode.h"
 #include "Scheduler.h"
 #include <stdbool.h>
+#include "Timer_Driver.h"
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
@@ -63,12 +64,15 @@ int main(void)
 		}
 
 		if (eventsToRun & GAME_START_EVENT) {
+			Timer7_Start();
+			setInitialTime();
 			Game_Init();
 			bool GameOver = 0;
 
 			while (!GameOver) {
 				Game_NewBlock();
 				GameOver = 1;
+				HAL_Delay(500);
 				while (1) {
 					if (!Game_MoveDown()) {
 						break;
@@ -87,7 +91,10 @@ int main(void)
 		}
 
 		if (eventsToRun & GAME_OVER_EVENT) {
+			Timer7_Stop();
+			setFinalTime();
 			gameOverScreen();
+			displayGameTime();
 			removeSchedulerEvent(GAME_OVER_EVENT);
 
 		}

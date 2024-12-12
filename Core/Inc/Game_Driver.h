@@ -13,6 +13,7 @@
 #include "RNG.h"
 #include "LCD_Driver.h"
 #include "stm32f4xx_hal.h"
+#include "Timer_Driver.h"
 
 
 #define numRow 16
@@ -28,6 +29,8 @@
 
 #define blockSize 10
 
+
+
 void Game_Init();
 void Game_NewBlock();
 void Game_PlaceBlock(uint16_t x, uint16_t y, uint16_t block);
@@ -41,6 +44,14 @@ void Game_Merge();
 void Game_Left();
 void Game_Right();
 void Game_Rotate();
+
+void incrementGameTime();
+void displayGameTime();
+
+void setInitialTime();
+
+void setFinalTime();
+uint32_t getTotalTime();
 
 
 

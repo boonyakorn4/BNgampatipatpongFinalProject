@@ -10,6 +10,7 @@
 /* Static variables */
 
 
+
 extern void initialise_monitor_handles(void); 
 
 #if COMPILE_TOUCH_FUNCTIONS == 1
@@ -23,6 +24,7 @@ void LCDTouchScreenInterruptGPIOInit(void);
 void ApplicationInit(void)
 {
 	RNG_Init();
+	Timer7_Init();
 	initialise_monitor_handles(); // Allows printf functionality
     LTCD__Init();
     LTCD_Layer_Init(0);
@@ -79,6 +81,17 @@ void EXTI0_IRQHandler() {
 
 	IRQClearInterruptPendingBit(buttonPinNumber);
 	IRQEnableInterrupt(EXTI0_IRQ_NUMBER);
+}
+
+void TIM7_IRQHandler() {
+	HAL_NVIC_DisableIRQ(TIM7_IRQn);
+	Timer7_Interrupt();
+	incrementGameTime();
+
+	HAL_NVIC_ClearPendingIRQ(TIM7_IRQn);
+	HAL_NVIC_EnableIRQ(TIM7_IRQn);
+
+
 }
 
 #if COMPILE_TOUCH_FUNCTIONS == 1
