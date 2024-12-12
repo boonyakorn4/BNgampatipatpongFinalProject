@@ -26,6 +26,7 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 void SystemClockOverride(void);
+static void MX_TIM7_Init(void);
 // static void MX_GPIO_Init(void);
 
 /**
@@ -43,6 +44,8 @@ int main(void)
 	SystemClockOverride();
 
 	ApplicationInit(); // Initializes the LCD functionality
+
+	MX_TIM7_Init();
 
 	//LCD_Visual_Demo();
 	//LCD_Menu_Screen();
@@ -64,7 +67,8 @@ int main(void)
 		}
 
 		if (eventsToRun & GAME_START_EVENT) {
-			Timer7_Start();
+			//Timer7_Start();
+			HAL_TIM_Base_Start(&htim7);
 			setInitialTime();
 			Game_Init();
 			bool GameOver = 0;
@@ -91,7 +95,7 @@ int main(void)
 		}
 
 		if (eventsToRun & GAME_OVER_EVENT) {
-			Timer7_Stop();
+			HAL_TIM_Base_Stop(&htim7);
 			setFinalTime();
 			gameOverScreen();
 			displayGameTime();
@@ -125,6 +129,37 @@ int main(void)
 	}
 
 }
+
+static void MX_TIM7_Init(void)
+{
+	__HAL_RCC_TIM7_CLK_ENABLE();
+ /* USER CODE BEGIN TIM7_Init 0 */
+ /* USER CODE END TIM7_Init 0 */
+ TIM_MasterConfigTypeDef sMasterConfig = {0};
+ /* USER CODE BEGIN TIM7_Init 1 */
+ /* USER CODE END TIM7_Init 1 */
+ htim7.Instance = TIM7;
+ htim7.Instance -> DIER = 1;
+ htim7.Init.Prescaler = 1250;
+ htim7.Init.CounterMode = TIM_COUNTERMODE_UP;
+ htim7.Init.Period = 65535;
+ htim7.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+ if (HAL_TIM_Base_Init(&htim7) != HAL_OK)
+ {
+   Error_Handler();
+ }
+ sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+ sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+ if (HAL_TIMEx_MasterConfigSynchronization(&htim7, &sMasterConfig) != HAL_OK)
+ {
+   Error_Handler();
+ }
+
+ HAL_NVIC_EnableIRQ(TIM7_IRQn);
+ /* USER CODE BEGIN TIM7_Init 2 */
+ /* USER CODE END TIM7_Init 2 */
+}
+
 
 /**
   * @brief System Clock Configuration
@@ -171,6 +206,8 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 }
+
+
 
 void SystemClockOverride(void)
 {

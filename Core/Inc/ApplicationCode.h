@@ -27,6 +27,8 @@ void LCD_Game_Screen();
 uint32_t RNG_generateNumber7();
 void WaitMS(uint32_t);
 
+static TIM_HandleTypeDef htim7;
+
 
 #if (COMPILE_TOUCH_FUNCTIONS == 1) && (COMPILE_TOUCH_INTERRUPT_SUPPORT == 0)
 void LCD_Touch_Polling_Demo(void);

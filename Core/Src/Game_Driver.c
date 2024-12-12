@@ -282,8 +282,8 @@ void incrementGameTime() {
 void displayGameTime() {
 	LCD_SetTextColor(LCD_COLOR_BLACK);
 	LCD_SetFont(&Font16x24);
-	//uint32_t temp = gameTimeMs;
-	uint32_t temp = getTotalTime();
+	uint32_t temp = gameTimeMs;
+	//uint32_t temp = getTotalTime();
 
 	LCD_DisplayChar(72,250,numToChar[temp / 100000]);
 	temp = temp - ((temp / 100000) * 100000);

@@ -24,7 +24,7 @@ void LCDTouchScreenInterruptGPIOInit(void);
 void ApplicationInit(void)
 {
 	RNG_Init();
-	Timer7_Init();
+	//Timer7_Init();
 	initialise_monitor_handles(); // Allows printf functionality
     LTCD__Init();
     LTCD_Layer_Init(0);
@@ -85,7 +85,10 @@ void EXTI0_IRQHandler() {
 
 void TIM7_IRQHandler() {
 	HAL_NVIC_DisableIRQ(TIM7_IRQn);
-	Timer7_Interrupt();
+	//Timer7_Interrupt();
+	htim7.Instance -> SR = 0;
+	TIM7 -> SR = 0;
+
 	incrementGameTime();
 
 	HAL_NVIC_ClearPendingIRQ(TIM7_IRQn);
