@@ -418,14 +418,26 @@ void menuScreen() {
 
 void gameOverScreen() {
 	LCD_Clear(0, LCD_COLOR_WHITE);
+	LCD_DisplayChar(90,90,'T');
+	LCD_DisplayChar(105,90,'e');
+	LCD_DisplayChar(115,90,'t');
+	LCD_DisplayChar(125,90,'r');
+	LCD_DisplayChar(130,90,'i');
+	LCD_DisplayChar(140,90,'s');
 	LCD_DisplayChar(90,140,'G');
-	LCD_DisplayChar(105,140,'a');
-	LCD_DisplayChar(125,140,'m');
-	LCD_DisplayChar(145,140,'e');
+	LCD_DisplayChar(105,140,'A');
+	LCD_DisplayChar(120,140,'M');
+	LCD_DisplayChar(135,140,'E');
 	LCD_DisplayChar(90,165,'O');
-	LCD_DisplayChar(105,165,'v');
-	LCD_DisplayChar(115,165,'e');
-	LCD_DisplayChar(125,165,'r');
+	LCD_DisplayChar(105,165,'V');
+	LCD_DisplayChar(120,165,'E');
+	LCD_DisplayChar(135,165,'R');
+
+	LCD_DisplayChar(20,230,'T');
+	LCD_DisplayChar(40,230,'I');
+	LCD_DisplayChar(60,230,'M');
+	LCD_DisplayChar(80,230,'E');
+	LCD_DisplayChar(100,230,':');
 
 }
 
